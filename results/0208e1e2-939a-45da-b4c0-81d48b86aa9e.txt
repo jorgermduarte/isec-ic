@@ -1,0 +1,67 @@
+Number of training images: 18345
+Number of validation images: 4585
+Number of test images: 43
+
+
+keras.layers.Flatten(input_shape=(224, 224, 3)),
+keras.layers.Dense(128, activation='relu'),
+keras.layers.Dense(64, activation='relu'),
+keras.layers.Dense(10, activation='softmax')
+
+
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.fit(x_train, y_train, epochs=10, validation_data=(x_validation, y_validation))
+
+Starting to train and validate the model
+Epoch 1/10
+574/574 [==============================] - 40s 68ms/step - loss: 4.1362 - accuracy: 0.4007 - val_loss: 1.8172 - val_accuracy: 0.5320
+Epoch 2/10
+574/574 [==============================] - 36s 63ms/step - loss: 1.7983 - accuracy: 0.5010 - val_loss: 1.4746 - val_accuracy: 0.5012
+Epoch 3/10
+574/574 [==============================] - 37s 64ms/step - loss: 1.3274 - accuracy: 0.5509 - val_loss: 1.3125 - val_accuracy: 0.5208
+Epoch 4/10
+574/574 [==============================] - 37s 64ms/step - loss: 1.2414 - accuracy: 0.5607 - val_loss: 1.4249 - val_accuracy: 0.5272
+Epoch 5/10
+574/574 [==============================] - 37s 64ms/step - loss: 1.1186 - accuracy: 0.5869 - val_loss: 1.3601 - val_accuracy: 0.5285
+Epoch 6/10
+574/574 [==============================] - 37s 64ms/step - loss: 1.0645 - accuracy: 0.6056 - val_loss: 1.0287 - val_accuracy: 0.6124
+Epoch 7/10
+574/574 [==============================] - 37s 65ms/step - loss: 1.0485 - accuracy: 0.6139 - val_loss: 1.0302 - val_accuracy: 0.6000
+Epoch 8/10
+574/574 [==============================] - 37s 65ms/step - loss: 0.9516 - accuracy: 0.6444 - val_loss: 0.9823 - val_accuracy: 0.6323
+Epoch 9/10
+574/574 [==============================] - 37s 64ms/step - loss: 0.9346 - accuracy: 0.6546 - val_loss: 1.0380 - val_accuracy: 0.6220
+Epoch 10/10
+574/574 [==============================] - 37s 64ms/step - loss: 0.9303 - accuracy: 0.6529 - val_loss: 1.0952 - val_accuracy: 0.5974
+Finished training and validating the model
+
+
+
+2/2 [==============================] - 0s 4ms/step
+[1 1 2 2 1 5 2 0 0 0 5 5 5 5 5 5 5 5 5 2 2 2 1 2 1 2 3 2 2 2 2 2 0 1 2 2 2
+ 4 4 2 2 2 4]
+['healthy', 'blight', 'spot', 'mold', 'virus', 'mite']
+Confusion Matrix: 
+[[3 0 1 0 0 0]
+ [0 3 2 0 0 1]
+ [1 1 7 0 0 0]
+ [0 2 4 1 0 0]
+ [0 0 3 0 3 0]
+ [0 0 2 0 0 9]]
+Classification Report: 
+              precision    recall  f1-score   support
+
+     healthy       0.75      0.75      0.75         4
+      blight       0.50      0.50      0.50         6
+        spot       0.37      0.78      0.50         9
+        mold       1.00      0.14      0.25         7
+       virus       1.00      0.50      0.67         6
+        mite       0.90      0.82      0.86        11
+
+    accuracy                           0.60        43
+   macro avg       0.75      0.58      0.59        43
+weighted avg       0.75      0.60      0.60        43
+
+
+
+

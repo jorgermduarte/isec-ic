@@ -1,53 +1,57 @@
 import os
 import uuid
 import numpy as np
-from PIL import Image
+from PIL import Image  # Import the Image class from the PIL (Pillow) library
 import tensorflow as tf
 from tensorflow import keras
 from sklearn.metrics import confusion_matrix, classification_report
 
-train_dir = "dataset/train"
-validation_dir = "dataset/validation"
-test_dir = "dataset/test"
+train_dir = "isec-ic\\dataset\\train"
+validation_dir = "dataset\\valid"
+test_dir = "isec-ic\\dataset\\test"
 
-current_dir = os.path.dirname(os.path.realpath(__file__ if __file__ is not None else os.getcwd()))
+current_dir = os.path.dirname(os.path.realpath(__file__ if '__file__' in locals() else os.getcwd()))
 
 train_dir = os.path.join(current_dir, train_dir)
 validation_dir = os.path.join(current_dir, validation_dir)
 test_dir = os.path.join(current_dir, test_dir)
 
-categories = ["scab", "rot", "rust", "healthy", "blight", "mildew", "spot", "scorch", "mold", "virus"]
+# "scab", "rot", "rust", "mildew","scorch",
+categories = ["healthy", "blight", "spot",  "mold", "virus", "mite"]
 
 def load_images_from_folder(folder):
     images = []
     labels = []
-    subfolders = os.listdir(folder)  # list of sub folders in the main folder
-    category = subfolder.split("_")[-1]  # category of the subfolder (e.g. "scab" from "Apple___Apple_scab")
-
-    if category in categories:
-        print("Loading images from category: " + category + " and subfolder: " + subfolder)
-        for subfolder in subfolders:
-            if any(category in subfolder for category in categories):
-                subfolder_path = os.path.join(folder, subfolder)
-                for filename in os.listdir(subfolder_path):
-                    img = Image.open(os.path.join(subfolder_path, filename))
-                    # img = img.resize((224, 224)) # resize if we want latter to use a different input size
-                    img = np.array(img) / 255.0  # normalization of the pixel values between 0 and 1
-                    images.append(img)
-                    labels.append(categories.index(category)) # index of the category in the list of categories
-    else:
-        print("Category: " + category + " from subfolder " + subfolder + " is not in the list of categories.")
+    subfolders = os.listdir(folder)  # list of subfolders in the main folder
+    
+    for subfolder in subfolders:
+        category = subfolder.split("_")[-1]  # category of the subfolder (e.g., "scab" from "Apple___Apple_scab")
+        
+        if category in categories:
+            print("Loading images from category: " + category + " and subfolder: " + subfolder)
+            subfolder_path = os.path.join(folder, subfolder)
+            
+            for filename in os.listdir(subfolder_path):
+                img = Image.open(os.path.join(subfolder_path, filename))
+                # img = img.resize((224, 224))  # resize if you want to use a different input size
+                img = np.array(img) / 255.0  # normalization of the pixel values between 0 and 1
+                images.append(img)
+                labels.append(categories.index(category))  # index of the category in the list of categories
+        else:
+            print("Category: " + category + " from subfolder " + subfolder + " is not in the list of categories.")
 
     return np.array(images), np.array(labels)
+
 
 x_train, y_train = load_images_from_folder(train_dir)
 x_validation, y_validation = load_images_from_folder(validation_dir)
 x_test, y_test = load_images_from_folder(test_dir)
 
-# display of the total number of images loaded
+# Display the total number of images loaded
 print("Number of training images: " + str(len(x_train)))
 print("Number of validation images: " + str(len(x_validation)))
 print("Number of test images: " + str(len(x_test)))
+
 
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(256, 256, 3)),
