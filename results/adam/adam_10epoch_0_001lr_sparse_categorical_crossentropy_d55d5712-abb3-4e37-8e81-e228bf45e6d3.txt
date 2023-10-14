@@ -1,0 +1,97 @@
+Loading images from category: spidermite and subfolder: Tomato__spidermite
+Loading images from category: bacterialspot and subfolder: Tomato___Bacterialspot
+Loading images from category: earlyblight and subfolder: Tomato___Earlyblight
+Loading images from category: healthy and subfolder: Tomato___healthy
+Loading images from category: lateblight and subfolder: Tomato___Lateblight
+Loading images from category: leafmold and subfolder: Tomato___Leafmold
+Loading images from category: septorialeafspot and subfolder: Tomato___Septorialeafspot
+Loading images from category: targetspot and subfolder: Tomato___Targetspot
+Loading images from category: mosaicvirus and subfolder: Tomato___Tomato_mosaicvirus
+Loading images from category: yellowleafcurlvirus and subfolder: Tomato___Tomato_yellowleafcurlvirus
+Finished to load the train images
+
+
+Loading images from category: bacterialspot and subfolder: Tomato___Bacterialspot
+Loading images from category: earlyblight and subfolder: Tomato___Earlyblight
+Loading images from category: healthy and subfolder: Tomato___healthy
+Loading images from category: lateblight and subfolder: Tomato___Lateblight
+Loading images from category: leafmold and subfolder: Tomato___Leafmold
+Loading images from category: septorialeafspot and subfolder: Tomato___Septorialeafspot
+Loading images from category: spidermite and subfolder: Tomato___Spider_spidermite
+Loading images from category: targetspot and subfolder: Tomato___Targetspot
+Loading images from category: mosaicvirus and subfolder: Tomato___Tomato_mosaicvirus
+Loading images from category: yellowleafcurlvirus and subfolder: Tomato___Tomato_Yellowleafcurlvirus
+Finished to load the validation images
+
+Loading images from category: bacterialspot and subfolder: tomato_bacterialspot
+Loading images from category: earlyblight and subfolder: tomato_earlyblight
+Loading images from category: healthy and subfolder: tomato_healthy
+Loading images from category: lateblight and subfolder: tomato_lateblight
+Loading images from category: leafmold and subfolder: tomato_leafmold
+Loading images from category: mosaicvirus and subfolder: tomato_mosaicvirus
+Loading images from category: septorialeafspot and subfolder: tomato_Septorialeafspot
+Loading images from category: spidermite and subfolder: tomato_spidermite
+Loading images from category: targetspot and subfolder: tomato_targetspot
+Loading images from category: yellowleafcurlvirus and subfolder: tomato_yellowleafcurlvirus
+Finished to load the test images
+
+
+Number of training images: 15000
+Number of validation images: 4000
+Number of test images: 1000
+
+
+print("Creating the MLP network")
+model = keras.Sequential([
+    keras.layers.Flatten(input_shape=(256, 256, 3)),
+    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dense(64, activation='relu'),
+    keras.layers.Dense(10, activation='softmax')
+])
+print("Finished creating the MLP Model")
+
+
+optimizer = Adam(learning_rate=0.001)  # Taxa de aprendizado de 0.001
+model.compile(optimizer=optimizer, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.fit(x_train, y_train, epochs=10, validation_data=(x_validation, y_validation))
+
+
+Starting to train and validate the model
+Epoch 1/10
+469/469 [==============================] - 55s 117ms/step - loss: 5.6547 - accuracy: 0.3129 - val_loss: 2.6094 - val_accuracy: 0.3548
+Epoch 2/10
+469/469 [==============================] - 44s 95ms/step - loss: 1.9436 - accuracy: 0.3953 - val_loss: 1.9463 - val_accuracy: 0.3640
+Epoch 3/10
+469/469 [==============================] - 43s 93ms/step - loss: 1.6336 - accuracy: 0.4531 - val_loss: 1.3635 - val_accuracy: 0.5265
+Epoch 4/10
+469/469 [==============================] - 43s 91ms/step - loss: 1.4302 - accuracy: 0.5190 - val_loss: 1.5331 - val_accuracy: 0.5155
+Epoch 5/10
+469/469 [==============================] - 43s 92ms/step - loss: 1.2975 - accuracy: 0.5596 - val_loss: 1.6772 - val_accuracy: 0.4848
+Epoch 6/10
+469/469 [==============================] - 45s 96ms/step - loss: 1.2232 - accuracy: 0.5797 - val_loss: 1.3219 - val_accuracy: 0.5533
+Epoch 7/10
+469/469 [==============================] - 43s 91ms/step - loss: 1.1625 - accuracy: 0.5983 - val_loss: 1.2905 - val_accuracy: 0.5303
+Epoch 8/10
+469/469 [==============================] - 45s 96ms/step - loss: 1.1352 - accuracy: 0.6073 - val_loss: 1.1165 - val_accuracy: 0.6130
+Epoch 9/10
+469/469 [==============================] - 42s 91ms/step - loss: 1.0957 - accuracy: 0.6203 - val_loss: 1.0892 - val_accuracy: 0.6258
+Epoch 10/10
+469/469 [==============================] - 43s 92ms/step - loss: 1.0806 - accuracy: 0.6274 - val_loss: 1.1238 - val_accuracy: 0.5990
+Finished training and validating the model
+
+
+32/32 [==============================] - 0s 10ms/step
+Confusion Matrix: 
+[[55  1 21  4  0  0  0  7  0 12]
+ [ 0 83  0  0  0  0  1  0  0 16]
+ [ 4  4 58  7  0  0  0  4  2 21]
+ [ 4  2 19 63  0  2  1  0  0  9]
+ [ 1 12  7  0  8  0  1  0  8 63]
+ [ 0  0 16  2  0 44  4  2  5 27]
+ [ 0  3  0  0  0  2 86  0  1  8]
+ [ 5  0  1  3  0  0  0 86  3  2]
+ [ 3  5  2  4  1  0  0 10 49 26]
+ [ 0  4  5  3  0  5  4  6  4 69]]
+ 
+ 
+ 
