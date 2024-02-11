@@ -25,5 +25,6 @@ Execute the provided Jupyter notebooks to train the models. These include Cnn_ba
 The project employs rigorous methodologies including:
 
 Data collection and preparation, experimentation with CNN architectures like VGG16 and ResNet50, Hyperparameter optimization using PSO, Random Search, and Grid Search Training and validation using techniques like Early Stopping and Model Checkpoint.
+
 This work not only significantly improved the model performance in terms of accuracy and generalization but also established a solid foundation for practical applications in real-world environments.
 
